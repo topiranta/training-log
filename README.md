@@ -15,7 +15,7 @@ Sovelluksen keskeiset toiminnallisuudet:
 * Käyttäjä voi merkitä suunnitellun harjoituksen suoritetuksi
 * Käyttäjä voi lisätä kommentin harjoitukseen
 * Käyttäjä näkee vain omat harjoituksensa
-* Valmentaja näkee kaikkien käyttäjien harjoituksen
+* Valmentaja näkee kaikkien käyttäjien harjoitukset
 * Valmentaja voi kommentoida käyttäjien harjoituksia
 * Valmentaja voi luoda käyttäjälle suunnitellun harjoituksen
 
