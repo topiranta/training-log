@@ -10,10 +10,12 @@ db = SQLAlchemy(app)
 
 @app.route("/")
 def index():
-	
-	result = db.session.execute("SELECT description FROM exercises")
-	messages = result.fetchall()
-	return str(messages)
+
+return 'moikkamoi'
+
+#	result = db.session.execute("SELECT description FROM exercises")
+#	messages = result.fetchall()
+#	return str(messages)
 
 @app.route("/create-table")
 def createtable():
