@@ -11,7 +11,7 @@ db = SQLAlchemy(app)
 @app.route("/")
 def index():
 
-return 'moikkamoi'
+	return 'moikkamoi'
 
 #	result = db.session.execute("SELECT description FROM exercises")
 #	messages = result.fetchall()
