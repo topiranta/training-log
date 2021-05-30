@@ -14,17 +14,18 @@ def index():
 #	return 'moikkamoi'
 
 	result = db.session.execute("SELECT description FROM exercises")
-	messages = result.fetchall()
-	return str(messages)
+	exercises = result.fetchall()
+	return render_template("index.html", exercises=exercises)
 
-@app.route("/insert")
-def insert():
+@app.route("/add", methods=["POST"])
+def add():
 
+	exercise = request.form["exercise"]
+	sql = "INSERT INTO exercises (description) VALUES (:exercise);"
 	try:
-		db.session.execute("INSERT INTO exercises (description) VALUES ('tosikovajuoksulenkki');")
-		db.session.execute("INSERT INTO exercises (description) VALUES ('tosikovapyoralenkki');")
+		db.session.execute(sql, {"exercise":exercise})
 	except:
 		return 'ei nyt onnistunu'
 	db.session.commit()
 
-	return '/'
+	return redirect("/")

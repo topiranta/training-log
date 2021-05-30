@@ -1,6 +1,15 @@
 <h1>Harjoitukset</h1>
 <hr>
+<ul>
 {% for exercise in exercises %}
-{{exercise[0] }}
-<hr>
+<li>{{exercise[0] }}</li>
+
 {% endfor %}
+</ul>
+<hr>
+<form action="/add" method="POST">
+Syötä uusi harjoitus:
+<input type="text" name="exercise">
+<br>
+<input type="submit" value="Lähetä">
+</form>
