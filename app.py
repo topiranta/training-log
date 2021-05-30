@@ -17,21 +17,14 @@ def index():
 	messages = result.fetchall()
 	return str(messages)
 
-@app.route("/create-table")
-def createtable():
-
-	try:
-		db.session.execute("CREATE TABLE exercises (id SERIAL PRIMARY KEY, description TEXT);")
-	except:
-		print('could not create table probably because it exists already')
-	db.session.commit()
-
 @app.route("/insert")
 def insert():
 
 	try:
-		db.session.execute("INSERT INTO exercises (description) VALUES ('kovajuoksulenkki');")
-		db.session.execute("INSERT INTO exercises (description) VALUES ('kovapyoralenkki');")
+		db.session.execute("INSERT INTO exercises (description) VALUES ('tosikovajuoksulenkki');")
+		db.session.execute("INSERT INTO exercises (description) VALUES ('tosikovapyoralenkki');")
 	except:
-		print('ei nyt onnistunu')
+		return 'ei nyt onnistunu'
 	db.session.commit()
+
+	return '/'
