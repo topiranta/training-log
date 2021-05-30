@@ -7,19 +7,6 @@ app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL")
 db = SQLAlchemy(app)
 
-try:
-	db.session.execute("CREATE TABLE exercises (id SERIAL PRIMARY KEY, description TEXT);")
-except:
-	print('could not create table probably because it exists already')
-
-db.session.commit()
-
-try:
-	db.session.execute("INSERT INTO exercises (description) VALUES ('kovajuoksulenkki');")
-	db.session.execute("INSERT INTO exercises (description) VALUES ('kovapyoralenkki');")
-except:
-	print('ei nyt onnistunu')
-db.session.commit()
 
 @app.route("/")
 def index():
@@ -27,3 +14,22 @@ def index():
 	result = db.session.execute("SELECT description FROM exercises")
 	messages = result.fetchall()
 	return str(messages)
+
+@app.route("/create-table")
+def createtable():
+
+	try:
+		db.session.execute("CREATE TABLE exercises (id SERIAL PRIMARY KEY, description TEXT);")
+	except:
+		print('could not create table probably because it exists already')
+	db.session.commit()
+
+@app.route("/insert")
+def insert():
+
+	try:
+		db.session.execute("INSERT INTO exercises (description) VALUES ('kovajuoksulenkki');")
+		db.session.execute("INSERT INTO exercises (description) VALUES ('kovapyoralenkki');")
+	except:
+		print('ei nyt onnistunu')
+	db.session.commit()
