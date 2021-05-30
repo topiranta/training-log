@@ -11,11 +11,11 @@ db = SQLAlchemy(app)
 @app.route("/")
 def index():
 
-	return 'moikkamoi'
+#	return 'moikkamoi'
 
-#	result = db.session.execute("SELECT description FROM exercises")
-#	messages = result.fetchall()
-#	return str(messages)
+	result = db.session.execute("SELECT description FROM exercises")
+	messages = result.fetchall()
+	return str(messages)
 
 @app.route("/create-table")
 def createtable():
