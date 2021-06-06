@@ -1,0 +1,1 @@
+CREATE TABLE exercises (id SERIAL PRIMARY KEY, description TEXT);
