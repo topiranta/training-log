@@ -1,9 +1,37 @@
-<h1>Luo uusi käyttäjätunnus</h1>
-<hr>
-<form action="/create-user" method="POST">
-Syötä käyttäjänimi:
-<input type="text" name="username">
+<h1>Kirjaudu sisään</h1>
 <br>
-<input type="text" name="password">
-<input type="submit" value="Luo">
+<form action="/login" method="POST">
+    Käyttäjänimi:
+    <br>
+    <input type="text" name="username">
+    <br>
+    Salasana:
+    <br>
+    <input type="password" name="password">
+    <br>
+    {{login_error}}
+    <br>
+    <input type="submit" value="Kirjaudu">
+</form>
+
+<hr>
+
+<h1>TAI luo uusi käyttäjätunnus</h1>
+<br>
+<form action="/create-user" method="POST">
+    Syötä käyttäjänimi:
+    <br>
+    <input type="text" name="username">
+    <br>
+    Syötä salasana:
+    <br>
+    <input type="password" name="password1">
+    <br>
+    Syötä salasana uudelleen:
+    <br>
+    <input type="password" name="password2">
+    <br>
+    {{create_error}}
+    <br>
+    <input type="submit" value="Luo">
 </form>

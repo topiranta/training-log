@@ -1,15 +1,16 @@
+Hei {{username}}! <a href="/logout">kirjaudu ulos</a>
 <h1>Harjoitukset</h1>
 <hr>
 <ul>
-{% for exercise in exercises %}
-<li>{{exercise[0] }}</li>
+    {% for exercise in exercises %}
+    <li>{{exercise[0] }}</li>
 
-{% endfor %}
+    {% endfor %}
 </ul>
 <hr>
 <form action="/add" method="POST">
-Syötä uusi harjoitus:
-<input type="text" name="exercise">
-<br>
-<input type="submit" value="Lähetä">
+    Syötä uusi harjoitus:
+    <input type="text" name="exercise">
+    <br>
+    <input type="submit" value="Lähetä">
 </form>
