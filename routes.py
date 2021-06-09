@@ -27,7 +27,8 @@ def index():
         return render_template("login.html", login_error=loginError, create_error=createError)
 
     username = session['username']
-    result = db.session.execute("SELECT description FROM exercises")
+    sql = "SELECT description FROM exercises WHERE username=:username"
+    result = db.session.execute(sql, {"username" : username})
     exercises = result.fetchall()
 
     return render_template("index.html", exercises=exercises, username=username)
@@ -36,11 +37,12 @@ def index():
 @app.route("/add", methods=["POST"])
 def add():
     exercise = request.form["exercise"]
-    sql = "INSERT INTO exercises (description) VALUES (:exercise);"
+    username = session['username']
+    sql = "INSERT INTO exercises (description,username) VALUES (:exercise,:username);"
 
     try:
 
-        db.session.execute(sql, {"exercise": exercise})
+        db.session.execute(sql, {"exercise": exercise, "username": username})
 
     except:
 
