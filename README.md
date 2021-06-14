@@ -4,6 +4,8 @@ Web-applikaatio, jolla voi pitää kirjaa ja suunnitella useamman lajin harjoitt
 
 **Sovelluksen tila ja ominaisuudet 14.6.**
 
+Tuotantosovellus kokeiltavissa [Herokussa](https://tsoha-training-log.herokuapp.com/).
+
 * Käyttäjä voi luoda käyttäjätunnuksen
   * Käyttäjätunnuksen tulee olla uniikki
   * Käyttäjää luodessa salasana tulee syöttää kaksi kertaa
