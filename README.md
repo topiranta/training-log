@@ -2,6 +2,17 @@
 
 Web-applikaatio, jolla voi pitää kirjaa ja suunnitella useamman lajin harjoittelua. Helsingin yliopiston kurssin *[Tietokantasovellus](https://hy-tsoha.github.io/materiaali/pages/aikataulu.html)* laboratoriotyö.
 
+**Sovelluksen tila ja ominaisuudet 14.6.**
+
+* Käyttäjä voi luoda käyttäjätunnuksen
+  * Käyttäjätunnuksen tulee olla uniikki
+  * Käyttäjää luodessa salasana tulee syöttää kaksi kertaa
+  * Sovellus osaa näyttää kirjautumissivulla erilaiset virheviestit
+* Käyttäjä voi kirjautua sisään
+* Käyttäjä voi luoda uuden harjoituksen ja antaa sille kuvauksen
+* Käyttäjä näkee omat harjoituksensa
+* Käyttäjä voi kirjautua ulos
+
 **Välipalautus 2 30.5.2021**
 
 Sovelluksesta on toimiva versio [Herokussa](https://tsoha-training-log.herokuapp.com/).
