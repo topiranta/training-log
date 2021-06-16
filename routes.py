@@ -28,7 +28,13 @@ def index():
         return render_template("login.html", login_error=loginError, create_error=createError)
 
     username = session['username']
-    sql = "SELECT description FROM exercises WHERE username=:username"
+    sql = "SELECT description FROM exercises"
+
+    if not session['admin']:
+
+        sql += "  WHERE username=:username"
+
+    print(str(sql))
     result = db.session.execute(sql, {"username" : username})
     exercises = result.fetchall()
 
