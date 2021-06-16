@@ -20,6 +20,7 @@ def create(username, password):
 
 	session['username'] = username
 	session['csrf_token'] = secrets.token_hex(16)
+	session['admin'] = False
 	return True
 
 def login(username, password):

@@ -8,14 +8,21 @@
 
 <h1>Harjoitukset</h1>
 <hr>
-<ul>
+<table>
+    <tr>
+        <th>Description</th>
+        <th>User</th>
+    </tr>
     {% for exercise in exercises %}
-    <li><a href="/exercise/{{exercise[1]}}">{{exercise[0]}}</a></li>
+    <tr>
+        <td><a href="/exercise/{{exercise[1]}}">{{exercise[0]}}</a></td>
+        <td>{{exercise[2]}}</td>
+    </tr>
 
     {% endfor %}
-</ul>
+</table>
 <hr>
-<form action="/add" method="POST">
+<form action="/exercise" method="POST">
     Syötä uusi harjoitus:
     <input type="text" name="exercise">
     <br>

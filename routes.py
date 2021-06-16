@@ -28,7 +28,7 @@ def index():
         return render_template("login.html", login_error=loginError, create_error=createError)
 
     username = session['username']
-    sql = "SELECT description, id FROM exercises"
+    sql = "SELECT description, id, username FROM exercises"
 
     if not session['admin']:
 
@@ -40,8 +40,8 @@ def index():
     return render_template("index.html", exercises=exercises, username=username)
 
 
-@app.route("/add", methods=["POST"])
-def add():
+@app.route("/exercise", methods=["POST"])
+def addExcercise():
 
     if session['csrf_token'] != request.form['csrf_token']:
 
@@ -74,16 +74,45 @@ def exercise(id):
     description = result[0]
     user = result[1]
 
+    sql = "SELECT content, username FROM comments WHERE exercise=:id"
+    comments = db.session.execute(sql, {"id":id}).fetchall()
+
     if not (result == None):
 
         if (session['username'] == user or session['admin']):
 
-            return render_template("exercise.html", description=description, user=user)
+            return render_template("exercise.html", description=description, user=user, comments=comments, id=id)
 
         abort(403)
 
     abort(404)
 
+@app.route("/comment", methods=["POST"])
+def comment():
+
+    if session['csrf_token'] != request.form['csrf_token']:
+
+        abort(403)
+
+    exercise = request.form['exercise']
+    username = session['username']
+    content = request.form['content']
+
+    print(exercise + ' ' + username + ' ' + content)
+
+    sql = "INSERT INTO comments (exercise,username,content) VALUES (:exercise,:username,:content)"
+
+    try:
+
+        db.session.execute(sql, {"exercise": exercise, "username": username, "content": content})
+
+    except:
+
+        return render_template("error.html")
+
+    db.session.commit()
+
+    return redirect('/exercise/' + exercise)
 
 @app.route("/create-user", methods=["POST"])
 def createUser():
