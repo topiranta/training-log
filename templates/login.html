@@ -1,3 +1,5 @@
+{% extends "template.html" %}
+{% block content %}
 <h1>Kirjaudu sisään</h1>
 <br>
 <form action="/login" method="POST">
@@ -35,3 +37,4 @@
     <br>
     <input type="submit" value="Luo">
 </form>
+{% endblock %}

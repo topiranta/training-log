@@ -2,6 +2,7 @@ from app import app
 from flask import redirect, render_template, request, session
 from db import db
 import users
+import secrets
 
 
 @app.route("/")
@@ -36,6 +37,11 @@ def index():
 
 @app.route("/add", methods=["POST"])
 def add():
+
+    if session['csrf_token'] != request.form['csrf_token']:
+
+        abort(403)
+
     exercise = request.form["exercise"]
     username = session['username']
     sql = "INSERT INTO exercises (description,username) VALUES (:exercise,:username);"
@@ -46,7 +52,7 @@ def add():
 
     except:
 
-        return 'ei nyt onnistunu'
+        return render_template("error.html")
 
     db.session.commit()
     return redirect("/")
@@ -64,6 +70,7 @@ def createUser():
 
     if users.create(username, password1):
         session['username'] = username
+        session['csrf_token'] = secrets.token_hex(16)
         return redirect("/")
 
     return redirect("/?error=username_not_available")
@@ -76,6 +83,7 @@ def login():
 
     if users.login(username, password):
         session['username'] = username
+        session['csrf_token'] = secrets.token_hex(16)
         return redirect("/")
 
     return redirect("/?error=login_failed")

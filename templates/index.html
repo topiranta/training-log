@@ -1,3 +1,6 @@
+{% extends "template.html" %}
+{% block content %}
+
 Hei {{username}}! <a href="/logout">kirjaudu ulos</a>
 <h1>Harjoitukset</h1>
 <hr>
@@ -13,4 +16,7 @@ Hei {{username}}! <a href="/logout">kirjaudu ulos</a>
     <input type="text" name="exercise">
     <br>
     <input type="submit" value="Lähetä">
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>
+
+{% endblock %}
