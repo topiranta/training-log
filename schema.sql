@@ -1,6 +1,7 @@
 CREATE TABLE users (
     username TEXT UNIQUE PRIMARY KEY,
-    password TEXT
+    password TEXT,
+    admin BOOLEAN
 );
 CREATE TABLE exercises (
     id SERIAL PRIMARY KEY,

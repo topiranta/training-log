@@ -69,8 +69,7 @@ def createUser():
         return redirect("/?error=unmatching_passwords")
 
     if users.create(username, password1):
-        session['username'] = username
-        session['csrf_token'] = secrets.token_hex(16)
+
         return redirect("/")
 
     return redirect("/?error=username_not_available")
@@ -82,8 +81,7 @@ def login():
     password = request.form["password"]
 
     if users.login(username, password):
-        session['username'] = username
-        session['csrf_token'] = secrets.token_hex(16)
+
         return redirect("/")
 
     return redirect("/?error=login_failed")
