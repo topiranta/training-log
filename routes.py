@@ -1,5 +1,5 @@
 from app import app
-from flask import redirect, render_template, request, session
+from flask import redirect, render_template, request, session, abort
 from db import db
 import users
 import secrets
@@ -28,13 +28,12 @@ def index():
         return render_template("login.html", login_error=loginError, create_error=createError)
 
     username = session['username']
-    sql = "SELECT description FROM exercises"
+    sql = "SELECT description, id FROM exercises"
 
     if not session['admin']:
 
         sql += "  WHERE username=:username"
 
-    print(str(sql))
     result = db.session.execute(sql, {"username" : username})
     exercises = result.fetchall()
 
@@ -62,6 +61,28 @@ def add():
 
     db.session.commit()
     return redirect("/")
+
+@app.route("/exercise/<int:id>")
+def exercise(id):
+
+    if not 'username' in session:
+
+        return redirect('/')
+
+    sql = "SELECT description, username FROM exercises WHERE id=:id"
+    result = db.session.execute(sql, {"id":id}).fetchone()
+    description = result[0]
+    user = result[1]
+
+    if not (result == None):
+
+        if (session['username'] == user or session['admin']):
+
+            return render_template("exercise.html", description=description, user=user)
+
+        abort(403)
+
+    abort(404)
 
 
 @app.route("/create-user", methods=["POST"])

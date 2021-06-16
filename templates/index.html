@@ -10,7 +10,7 @@
 <hr>
 <ul>
     {% for exercise in exercises %}
-    <li>{{exercise[0] }}</li>
+    <li><a href="/exercise/{{exercise[1]}}">{{exercise[0]}}</a></li>
 
     {% endfor %}
 </ul>
