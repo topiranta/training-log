@@ -1,8 +1,7 @@
 from app import app
 from flask import redirect, render_template, request, session, abort
 from db import db
-import users
-import secrets
+import users, contents
 
 
 @app.route("/")
@@ -28,14 +27,15 @@ def index():
         return render_template("login.html", login_error=loginError, create_error=createError)
 
     username = session['username']
-    sql = "SELECT description, id, username FROM exercises"
+    exercises = ''
 
     if not session['admin']:
 
-        sql += "  WHERE username=:username"
+        exercises = contents.usersExercises(username)
 
-    result = db.session.execute(sql, {"username" : username})
-    exercises = result.fetchall()
+    else:
+
+        exercises = contents.allExercises()
 
     return render_template("index.html", exercises=exercises, username=username)
 
@@ -47,37 +47,30 @@ def addExcercise():
 
         abort(403)
 
-    exercise = request.form["exercise"]
+    description = request.form["exercise"]
     username = session['username']
-    sql = "INSERT INTO exercises (description,username) VALUES (:exercise,:username);"
 
-    try:
+    if contents.newExercise(description, username):
 
-        db.session.execute(sql, {"exercise": exercise, "username": username})
+        return redirect("/")
 
-    except:
-
-        return render_template("error.html")
-
-    db.session.commit()
-    return redirect("/")
+    return redirect("/error")
 
 @app.route("/exercise/<int:id>")
 def exercise(id):
+
+    print(id)
 
     if not 'username' in session:
 
         return redirect('/')
 
-    sql = "SELECT description, username FROM exercises WHERE id=:id"
-    result = db.session.execute(sql, {"id":id}).fetchone()
-    description = result[0]
-    user = result[1]
+    exercise = contents.exercise(id)
+    description = exercise[0]
+    user = exercise[1]
+    comments = contents.comments(id)
 
-    sql = "SELECT content, username FROM comments WHERE exercise=:id"
-    comments = db.session.execute(sql, {"id":id}).fetchall()
-
-    if not (result == None):
+    if not (exercise == None):
 
         if (session['username'] == user or session['admin']):
 
@@ -98,21 +91,11 @@ def comment():
     username = session['username']
     content = request.form['content']
 
-    print(exercise + ' ' + username + ' ' + content)
+    if contents.newComment(exercise,username,content):
 
-    sql = "INSERT INTO comments (exercise,username,content) VALUES (:exercise,:username,:content)"
+        return redirect('/exercise/' + exercise)
 
-    try:
-
-        db.session.execute(sql, {"exercise": exercise, "username": username, "content": content})
-
-    except:
-
-        return render_template("error.html")
-
-    db.session.commit()
-
-    return redirect('/exercise/' + exercise)
+    return redirect('/error')
 
 @app.route("/create-user", methods=["POST"])
 def createUser():
