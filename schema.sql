@@ -1,16 +1,21 @@
+CREATE TABLE userlevels (
+    id SERIAL PRIMARY KEY,
+    name TEXT UNIQUE
+);
 CREATE TABLE users (
-    username TEXT UNIQUE PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
+    username TEXT UNIQUE,
     password TEXT,
-    admin BOOLEAN
+    userlevel INTEGER REFERENCES userlevels
 );
 CREATE TABLE exercises (
     id SERIAL PRIMARY KEY,
     description TEXT,
-    username TEXT REFERENCES users
+    userid INTEGER REFERENCES users
 );
 CREATE TABLE comments (
     id SERIAL PRIMARY KEY,
     content TEXT,
     exercise INTEGER REFERENCES exercises,
-    username TEXT REFERENCES users
+    userid INTEGER REFERENCES users
 );

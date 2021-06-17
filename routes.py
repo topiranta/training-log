@@ -5,7 +5,7 @@ import users, contents
 
 @app.route("/")
 def index():
-    if not 'username' in session:
+    if not users.loggedin():
 
         error = request.args.get('error')
         loginError = ''
@@ -25,31 +25,29 @@ def index():
 
         return render_template("login.html", login_error=loginError, create_error=createError)
 
-    username = session['username']
     exercises = ''
 
-    if not session['admin']:
+    if not (users.userlevel() > 1):
 
-        exercises = contents.usersExercises(username)
+        exercises = contents.usersExercises(users.userid())
 
     else:
 
         exercises = contents.allExercises()
 
-    return render_template("index.html", exercises=exercises, username=username)
+    return render_template("index.html", exercises=exercises, username=users.username())
 
 
 @app.route("/exercise", methods=["POST"])
 def addExcercise():
 
-    if session['csrf_token'] != request.form['csrf_token']:
+    if users.csrf() != request.form['csrf_token']:
 
         abort(403)
 
     description = request.form["exercise"]
-    username = session['username']
 
-    if contents.newExercise(description, username):
+    if contents.newExercise(description, users.userid()):
 
         return redirect("/")
 
@@ -58,22 +56,21 @@ def addExcercise():
 @app.route("/exercise/<int:id>")
 def exercise(id):
 
-    print(id)
-
-    if not 'username' in session:
+    if not users.loggedin():
 
         return redirect('/')
 
     exercise = contents.exercise(id)
     description = exercise[0]
-    user = exercise[1]
+    userid = exercise[1]
+    username = exercise[2]
     comments = contents.comments(id)
 
     if not (exercise == None):
 
-        if (session['username'] == user or session['admin']):
+        if (users.userid() == userid or (users.userlevel()>1)):
 
-            return render_template("exercise.html", description=description, user=user, comments=comments, id=id)
+            return render_template("exercise.html", description=description, user=username, comments=comments, id=id)
 
         abort(403)
 
@@ -82,15 +79,15 @@ def exercise(id):
 @app.route("/comment", methods=["POST"])
 def comment():
 
-    if session['csrf_token'] != request.form['csrf_token']:
+    if users.csrf() != request.form['csrf_token']:
 
         abort(403)
 
     exercise = request.form['exercise']
-    username = session['username']
+    userid = users.userid()
     content = request.form['content']
 
-    if contents.newComment(exercise,username,content):
+    if contents.newComment(exercise,userid,content):
 
         return redirect('/exercise/' + exercise)
 
@@ -135,5 +132,5 @@ def error():
 @app.route("/logout")
 def logout():
 
-    del session['username']
+    users.logout()
     return redirect('/')

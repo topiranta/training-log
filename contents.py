@@ -3,29 +3,29 @@ from flask import session
 from flask_sqlalchemy import SQLAlchemy
 from db import db
 
-def usersExercises(username):
+def usersExercises(userid):
 
-    sql = "SELECT description, id, username FROM exercises WHERE username=:username"
-    result = db.session.execute(sql, {"username": username})
+    sql = "SELECT exercises.description, exercises.id, users.username FROM exercises LEFT JOIN users ON exercises.userid = users.id WHERE exercises.userid=:userid"
+    result = db.session.execute(sql, {"userid": userid})
     exercises = result.fetchall()
 
     return exercises
 
 def allExercises():
 
-    sql = "SELECT description, id, username FROM exercises"
+    sql = "SELECT exercises.description, exercises.id, users.username FROM exercises LEFT JOIN users ON exercises.userid = users.id"
     result = db.session.execute(sql)
     exercises = result.fetchall()
 
     return exercises
 
-def newExercise(description, username):
+def newExercise(description, userid):
 
-    sql = "INSERT INTO exercises (description,username) VALUES (:description,:username)"
+    sql = "INSERT INTO exercises (description,userid) VALUES (:description,:userid)"
 
     try:
 
-        db.session.execute(sql, {"description": description, "username": username})
+        db.session.execute(sql, {"description": description, "userid": userid})
         db.session.commit()
 
     except:
@@ -36,25 +36,25 @@ def newExercise(description, username):
 
 def exercise(id):
 
-    sql = "SELECT description, username FROM exercises WHERE id=:id"
+    sql = "SELECT exercises.description, exercises.userid, users.username FROM exercises LEFT JOIN users ON exercises.userid = users.id WHERE exercises.id=:id"
     result = db.session.execute(sql, {"id": id}).fetchone()
 
     return result
 
 def comments(exerciseId):
 
-    sql = "SELECT content, username FROM comments WHERE exercise=:exerciseId"
+    sql = "SELECT comments.content, users.username FROM comments LEFT JOIN users ON comments.userid = users.id WHERE exercise=:exerciseId"
     comments = db.session.execute(sql, {"exerciseId": exerciseId}).fetchall()
 
     return comments
 
-def newComment(exercise,username,content):
+def newComment(exercise,userid,content):
 
-    sql = "INSERT INTO comments (exercise,username,content) VALUES (:exercise,:username,:content)"
+    sql = "INSERT INTO comments (exercise,userid,content) VALUES (:exercise,:userid,:content)"
 
     try:
 
-        db.session.execute(sql, {"exercise": exercise, "username": username, "content": content})
+        db.session.execute(sql, {"exercise": exercise, "userid": userid, "content": content})
         db.session.commit()
 
     except:
