@@ -1,6 +1,5 @@
 from app import app
 from flask import redirect, render_template, request, session, abort
-from db import db
 import users, contents
 
 
@@ -99,6 +98,7 @@ def comment():
 
 @app.route("/create-user", methods=["POST"])
 def createUser():
+
     username = request.form["username"]
     password1 = request.form["password1"]
     password2 = request.form["password2"]
@@ -116,6 +116,7 @@ def createUser():
 
 @app.route("/login", methods=["POST"])
 def login():
+
     username = request.form["username"]
     password = request.form["password"]
 
@@ -128,9 +129,11 @@ def login():
 
 @app.route("/error")
 def error():
+
     return render_template("error.html")
 
 @app.route("/logout")
 def logout():
+
     del session['username']
     return redirect('/')

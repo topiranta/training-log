@@ -1,17 +1,11 @@
 {% extends "template.html" %}
 {% block content %}
-
-
-<p id="user">
-    Hei {{session.username}}! <a href="/logout">kirjaudu ulos</a>
-</p>
-
 <h1>Harjoitukset</h1>
 <hr>
 <table>
     <tr>
-        <th>Description</th>
-        <th>User</th>
+        <th>Harjoitus</th>
+        <th>Käyttäjä</th>
     </tr>
     {% for exercise in exercises %}
     <tr>
