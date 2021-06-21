@@ -138,7 +138,7 @@ def logout():
 @app.route("/users")
 def userslist():
 
-    if not users.loggedin() and (users.userlevel > 1):
+    if not (users.loggedin() and (users.userlevel() > 1)):
 
         abort(403)
 
@@ -156,7 +156,7 @@ def userslist():
 @app.route("/updateuser", methods=["POST"])
 def updateuser():
 
-    if users.csrf() != request.form['csrf_token'] and not users.userlevel() > 2:
+    if users.csrf() != request.form['csrf_token'] or not users.userlevel() > 2:
 
         abort(403)
 
