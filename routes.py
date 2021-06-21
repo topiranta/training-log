@@ -134,3 +134,36 @@ def logout():
 
     users.logout()
     return redirect('/')
+
+@app.route("/users")
+def userslist():
+
+    if not users.loggedin() and (users.userlevel > 1):
+
+        abort(403)
+
+    allusers = users.users()
+    alluserlevels = users.userlevels()
+
+    if users.userlevel() == 2:
+
+        return render_template("users.html", users=allusers)
+
+    elif users.userlevel() == 3:
+
+        return render_template("usersadmin.html", users=allusers, userlevels=alluserlevels)
+
+@app.route("/updateuser", methods=["POST"])
+def updateuser():
+
+    if users.csrf() != request.form['csrf_token'] and not users.userlevel() > 2:
+
+        abort(403)
+
+    userid = request.form["userid"]
+    username = request.form["username"]
+    userlevel = request.form["userlevel"]
+
+    users.updateuser(userid, username, userlevel)
+
+    return redirect('/users')

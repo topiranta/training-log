@@ -1,5 +1,6 @@
 CREATE TABLE userlevels (
     id SERIAL PRIMARY KEY,
+    level INTEGER,
     name TEXT UNIQUE
 );
 CREATE TABLE users (

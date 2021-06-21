@@ -1,0 +1,35 @@
+{% extends "template.html" %}
+{% block content %}
+<h1>Käyttäjät</h1>
+<hr>
+<table>
+    <tr>
+        <th>Käyttäjänimi</th>
+        <th>Käyttäjätaso</th>
+        <th>Muuta käyttäjätaso</th>
+    </tr>
+    {% for user in users %}
+    <tr>
+        <form action="/updateuser" method="POST">
+            <td>
+                <input type="text" name="username" value={{user[0]}}>
+            </td>
+            <td>{{user[1]}}</td>
+            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+            <input type="hidden" name="userid" value="{{user[2]}}">
+            <td>
+                <select id="userlevel" name="userlevel">
+                    {% for userlevel in userlevels %}
+                    <option name="userlevel" value={{userlevel[0]}}>{{userlevel[1]}}</option>
+                    {% endfor %}
+                </select>
+            </td>
+            <td>
+                <input type="submit" value="muuta">
+            </td>
+        </form>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

@@ -1,5 +1,5 @@
 from app import app
-from flask import session
+from flask import session, abort
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import check_password_hash, generate_password_hash
 from db import db
@@ -22,6 +22,7 @@ def create(username, password):
 
 	except:
 
+		print('pieleen män')
 		return False
 
 	return True
@@ -29,7 +30,8 @@ def create(username, password):
 def login(username, password):
 
 	try:
-		sql = "SELECT password, userlevel, id FROM users WHERE username=:username"
+
+		sql = "SELECT users.password, userlevels.level, users.id FROM users LEFT JOIN userlevels ON users.userlevel = userlevels.id WHERE username=:username"
 		user = db.session.execute(sql, {"username":username}).fetchone()
 
 		if not (user == None):
@@ -94,3 +96,22 @@ def csrf():
 
 	return session['csrf_token']
 
+def users():
+
+	sql = "SELECT username, userlevels.name, users.id FROM users LEFT JOIN userlevels ON users.userlevel = userlevels.id"
+	result = db.session.execute(sql)
+	users = result.fetchall()
+	return users
+
+def userlevels():
+
+	sql = "SELECT level, name FROM userlevels"
+	result = db.session.execute(sql)
+	userlevels = result.fetchall()
+	return userlevels
+
+def updateuser(userid, username, userlevel):
+
+	sql = "UPDATE users SET (username, userlevel) = (:username, :userlevel) WHERE id=:userid"
+	db.session.execute(sql, {"userid":userid,"username":username,"userlevel":userlevel})
+	db.session.commit()
