@@ -30,12 +30,14 @@ def index():
     if not (users.userlevel() > 1):
 
         exercises = contents.usersExercises(users.userid())
+        return render_template("index.html", exercises=exercises, username=users.username(), exercisetypes=contents.exercisetypes())
 
     else:
 
         exercises = contents.allExercises()
+        return render_template("indexadmin.html", exercises=exercises, username=users.username(), exercisetypes=contents.exercisetypes())
 
-    return render_template("index.html", exercises=exercises, username=users.username())
+    
 
 
 @app.route("/exercise", methods=["POST"])
@@ -46,8 +48,12 @@ def addExcercise():
         abort(403)
 
     description = request.form["exercise"]
+    exercisetype = request.form["exercisetype"]
+    length = request.form["length"]
+    duration = request.form["duration"]
+    bpm = request.form["bpm"]
 
-    if contents.newExercise(description, users.userid()):
+    if contents.newExercise(description, users.userid(), exercisetype, length, duration, bpm):
 
         return redirect("/")
 
@@ -61,16 +67,14 @@ def exercise(id):
         return redirect('/')
 
     exercise = contents.exercise(id)
-    description = exercise[0]
     userid = exercise[1]
-    username = exercise[2]
     comments = contents.comments(id)
 
     if not (exercise == None):
 
         if (users.userid() == userid or (users.userlevel()>1)):
 
-            return render_template("exercise.html", description=description, user=username, comments=comments, id=id)
+            return render_template("exercise.html", exercise=exercise, comments=comments, id=id)
 
         abort(403)
 

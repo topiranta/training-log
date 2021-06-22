@@ -5,7 +5,7 @@ from db import db
 
 def usersExercises(userid):
 
-    sql = "SELECT exercises.description, exercises.id, users.username FROM exercises LEFT JOIN users ON exercises.userid = users.id WHERE exercises.userid=:userid"
+    sql = "SELECT exercises.description, exercises.id, users.username, exercisetypes.name, exercises.length, exercises.duration, exercises.bpm FROM exercises LEFT JOIN users ON exercises.userid = users.id LEFT JOIN exercisetypes ON exercises.exercisetype = exercisetypes.id WHERE exercises.userid=:userid"
     result = db.session.execute(sql, {"userid": userid})
     exercises = result.fetchall()
 
@@ -13,19 +13,19 @@ def usersExercises(userid):
 
 def allExercises():
 
-    sql = "SELECT exercises.description, exercises.id, users.username FROM exercises LEFT JOIN users ON exercises.userid = users.id"
+    sql = "SELECT exercises.description, exercises.id, users.username, exercisetypes.name, exercises.length, exercises.duration, exercises.bpm FROM exercises LEFT JOIN users ON exercises.userid = users.id LEFT JOIN exercisetypes ON exercises.exercisetype = exercisetypes.id"
     result = db.session.execute(sql)
     exercises = result.fetchall()
 
     return exercises
 
-def newExercise(description, userid):
+def newExercise(description, userid, exercisetype, length, duration, bpm):
 
-    sql = "INSERT INTO exercises (description,userid) VALUES (:description,:userid)"
+    sql = "INSERT INTO exercises (description,userid,exercisetype,length,duration,bpm) VALUES (:description,:userid,:exercisetype,:length,:duration,:bpm)"
 
     try:
 
-        db.session.execute(sql, {"description": description, "userid": userid})
+        db.session.execute(sql, {"description": description, "userid": userid, "exercisetype": exercisetype, "length": length, "duration": duration, "bpm": bpm})
         db.session.commit()
 
     except:
@@ -36,7 +36,7 @@ def newExercise(description, userid):
 
 def exercise(id):
 
-    sql = "SELECT exercises.description, exercises.userid, users.username FROM exercises LEFT JOIN users ON exercises.userid = users.id WHERE exercises.id=:id"
+    sql = "SELECT exercises.description, exercises.userid, users.username, exercisetypes.name, exercises.length, exercises.duration, exercises.bpm FROM exercises LEFT JOIN users ON exercises.userid = users.id LEFT JOIN exercisetypes ON exercises.exercisetype = exercisetypes.id WHERE exercises.id=:id"
     result = db.session.execute(sql, {"id": id}).fetchone()
 
     return result
@@ -62,3 +62,10 @@ def newComment(exercise,userid,content):
         return False
 
     return True
+
+def exercisetypes():
+
+    sql = "SELECT id, name FROM exercisetypes"
+    exercisetypes = db.session.execute(sql).fetchall()
+
+    return exercisetypes

@@ -9,9 +9,17 @@ CREATE TABLE users (
     password TEXT,
     userlevel INTEGER REFERENCES userlevels
 );
+CREATE TABLE exercisetypes (
+    id SERIAL PRIMARY KEY,
+    name TEXT
+);
 CREATE TABLE exercises (
     id SERIAL PRIMARY KEY,
     description TEXT,
+    exercisetype INTEGER REFERENCES exercisetypes,
+    length INTEGER,
+    duration INTEGER,
+    bpm INTEGER,
     userid INTEGER REFERENCES users
 );
 CREATE TABLE comments (

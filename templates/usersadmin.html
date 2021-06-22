@@ -5,11 +5,13 @@
 <table>
     <tr>
         <th>Käyttäjänimi</th>
+        <th>Uusi käyttäjänimi</th>
         <th>Käyttäjätaso</th>
-        <th>Muuta käyttäjätaso</th>
+        <th>Uusi käyttäjätaso</th>
     </tr>
     {% for user in users %}
     <tr>
+        <td>{{user[0]}}</td>
         <form action="/updateuser" method="POST">
             <td>
                 <input type="text" name="username" value={{user[0]}}>
