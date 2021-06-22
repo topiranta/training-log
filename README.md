@@ -2,7 +2,7 @@
 
 Web-applikaatio, jolla voi pitää kirjaa ja suunnitella useamman lajin harjoittelua. Helsingin yliopiston kurssin *[Tietokantasovellus](https://hy-tsoha.github.io/materiaali/pages/aikataulu.html)* laboratoriotyö.
 
-## Sovelluksen tila ja ominaisuudet 16.6.
+## Sovelluksen tila ja ominaisuudet 22.6.
 
 Tuotantosovellus kokeiltavissa [Herokussa](https://tsoha-training-log.herokuapp.com/).
 Herokussa pyörivän sovelluksen tietokannassa on yksi admin-käyttäjä:
@@ -16,15 +16,19 @@ Herokussa pyörivän sovelluksen tietokannassa on yksi admin-käyttäjä:
   * Käyttäjää luodessa salasana tulee syöttää kaksi kertaa
   * Sovellus osaa näyttää kirjautumissivulla erilaiset virheviestit
 * Käyttäjä voi kirjautua sisään
-* Käyttäjä voi luoda uuden harjoituksen ja antaa sille kuvauksen
+* Käyttäjä voi luoda uuden harjoituksen ja antaa sille kuvauksen, lajin, pituuden, ajan sekä keskisykkeen
 * Käyttäjä näkee omat harjoituksensa
 * Käyttäjä voi avata harjoituksen oman sivun
 * Käyttäjä voi kirjoittaa harjoitukselle kommentin
 * Käyttäjä näkee harjoituksen kommentit
 * Käyttäjä voi kirjautua ulos
+* Valmentaja näkee kaikkien harjoitukset
+* Valmentaja voi kirjoittaa kaikkiin harjoituksiin kommentin
+* Valmentaja näkee kaikki käyttäjät
 * Admin näkee kaikkien harjoitukset
 * Admin voi avata kaikkien harjoitusten sivut
 * Admin voi kirjoittaa kaikkin harjoituksiin kommentin
+* Admin näkee kaikki käyttäjät ja voi muokata näiden käyttäjänimeä sekä käyttäjätasoa
 
 ## Välipalautus 2 30.5.2021
 
