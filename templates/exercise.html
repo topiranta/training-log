@@ -1,54 +1,54 @@
 {% extends "template.html" %}
 {% block content %}
+<div class="content">
+    <p>
+        <h1>{{exercise[0]}}</h1>
+        Käyttäjän {{exercise[2]}} harjoitus
+    </p>
 
-<h1>{{exercise[0]}}</h1>
-Käyttäjän {{exercise[2]}} harjoitus
+    <table class="exercises">
+        <tr>
+            <th>Harjoitus</th>
+            <th>Laji</th>
+            <th>Pituus km</th>
+            <th>Kesto min</th>
+            <th>Keskisyke</th>
+        </tr>
+        <tr>
+            <td>{{exercise[0]}}</td>
+            <td>{{exercise[3]}}</td>
+            <td>{{exercise[4]}}</td>
+            <td>{{exercise[5]}}</td>
+            <td>{{exercise[6]}}</td>
+        </tr>
+    </table>
 
-<table>
-    <tr>
-        <th>Harjoitus</th>
-        <th>Laji</th>
-        <th>Pituus km</th>
-        <th>Kesto min</th>
-        <th>Keskisyke</th>
-    </tr>
-    <tr>
-        <td>{{exercise[0]}}</td>
-        <td>{{exercise[3]}}</td>
-        <td>{{exercise[4]}}</td>
-        <td>{{exercise[5]}}</td>
-        <td>{{exercise[6]}}</td>
-    </tr>
-</table>
+    <h2>Kommentit</h2>
 
-<h2>Kommentit</h2>
-
-<table>
-    <tr>
-        <th>Kommentti</th>
-        <th>Käyttäjä</th>
-    </tr>
-    {% for comment in comments %}
-    <tr>
-        <td>{{comment[0]}}</td>
-        <td>{{comment[1]}}</td>
-    </tr>
-    {% endfor %}
-    <tr>
-        <form action="/comment" method="POST">
-            <td>
-                <input type="text" name="content">
-                <input type="hidden" name="exercise" value="{{id}}">
-                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-            </td>
-            <td>
-                <input type="submit" value="Lisää kommentti">
-            </td>
-        </form>
-    </tr>
-</table>
-
-<br>
-<a href="/">Etusivulle</a>
+    <table class="comments">
+        <tr>
+            <th>Kommentti</th>
+            <th>Käyttäjä</th>
+        </tr>
+        {% for comment in comments %}
+        <tr>
+            <td>{{comment[0]}}</td>
+            <td>{{comment[1]}}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <form action="/comment" method="POST">
+                <td>
+                    <input type="text" name="content">
+                    <input type="hidden" name="exercise" value="{{id}}">
+                    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+                </td>
+                <td>
+                    <input type="submit" value="Lisää kommentti">
+                </td>
+            </form>
+        </tr>
+    </table>
+</div>
 
 {% endblock %}

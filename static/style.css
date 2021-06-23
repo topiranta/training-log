@@ -1,0 +1,56 @@
+body {
+    margin: auto;
+    max-width: 55em;
+    font-family: 'Lucida Console', 'Arial', sans-serif;
+    color: #004a19;
+    background-color: #f7f4e9;
+}
+
+a:link {
+    color: #004a19;
+}
+
+a:visited {
+    color: #004a19;
+}
+
+a:hover {
+    color: #7d8780;
+}
+
+a:active {
+    color: #7d8780;
+}
+
+.nav {
+    background-color: #004a19;
+    color: #f7f4e9;
+    padding: 0.5em;
+}
+
+.nav a:link {
+    color: #f7f4e9;
+}
+
+.nav a:visited {
+    color: #f7f4e9;
+}
+
+.content {
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+table.exercises {
+    table-layout: fixed;
+    max-width: 100%;
+}
+
+table.comments {
+    table-layout: auto;
+    max-width: 50%;
+}
+
+th {
+    text-align: left;
+}

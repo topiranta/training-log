@@ -1,18 +1,20 @@
 {% extends "template.html" %}
 {% block content %}
-<h1>Käyttäjät</h1>
-<hr>
-<table>
-    <tr>
-        <th>Käyttäjänimi</th>
-        <th>Käyttäjätaso</th>
-    </tr>
-    {% for user in users %}
-    <tr>
-        <td>{{user[0]}}</td>
-        <td>{{user[1]}}</td>
-    </tr>
-    {% endfor %}
-</table>
+<div class="content">
+    <h1>Käyttäjät</h1>
+    <hr>
+    <table class="comments">
+        <tr>
+            <th>Käyttäjänimi</th>
+            <th>Käyttäjätaso</th>
+        </tr>
+        {% for user in users %}
+        <tr>
+            <td>{{user[0]}}</td>
+            <td>{{user[1]}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
 
 {% endblock %}

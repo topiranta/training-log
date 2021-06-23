@@ -8,22 +8,20 @@ def index():
     if not users.loggedin():
 
         error = request.args.get('error')
-        loginError = ''
-        createError = ''
 
         if error == 'login_failed':
 
-            loginError = 'Kirjautuminen epäonnistui: käyttäjä tai salasana on väärä'
+            error = 'Kirjautuminen epäonnistui: käyttäjä tai salasana on väärä'
 
         elif error == 'unmatching_passwords':
 
-            createError = 'Syöttämäsi salasanat eivät täsmää'
+            error = 'Syöttämäsi salasanat eivät täsmää'
 
         elif error == 'username_not_available':
 
-            createError = 'Käyttäjätunnus ei ole vapaana'
+            error = 'Käyttäjätunnus ei ole vapaana'
 
-        return render_template("login.html", login_error=loginError, create_error=createError)
+        return render_template("login.html", error=error)
 
     exercises = ''
 

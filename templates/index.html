@@ -1,44 +1,46 @@
 {% extends "template.html" %}
 {% block content %}
-<h1>Harjoitukset</h1>
-<hr>
-<table>
-    <tr>
-        <th>Harjoitus</th>
-        <th>Laji</th>
-        <th>Pituus km</th>
-        <th>Kesto min</th>
-        <th>Keskisyke</th>
-        <th>Käyttäjä</th>
-    </tr>
-    {% for exercise in exercises %}
-    <tr>
-        <td><a href="/exercise/{{exercise[1]}}">{{exercise[0]}}</a></td>
-        <td>{{exercise[3]}}</td>
-        <td>{{exercise[4]}}</td>
-        <td>{{exercise[5]}}</td>
-        <td>{{exercise[6]}}</td>
-        <td>{{exercise[2]}}</td>
-    </tr>
-    {% endfor %}
-    <tr>
-        <form action="/exercise" method="POST">
-            <td><input type="text" name="exercise"></td>
-            <td>
-                <select id="exercisetype" name="exercisetype">
-                    {% for exercisetype in exercisetypes %}
-                    <option name="exercisetype" value={{exercisetype[0]}}>{{exercisetype[1]}}</option>
-                    {% endfor %}
-                </select>
-            </td>
-            <td><input type="text" name="length"></td>
-            <td><input type="text" name="duration"></td>
-            <td><input type="text" name="bpm"></td>
-            <td><input type="submit" value="Lisää"></td>
-            <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
-        </form>
-    </tr>
-</table>
+<div class="content">
+    <h1>Harjoitukset</h1>
+    <hr>
+    <table class="exercises">
+        <tr>
+            <th>Harjoitus</th>
+            <th>Laji</th>
+            <th>Pituus km</th>
+            <th>Kesto min</th>
+            <th>Keskisyke</th>
+            <th>Käyttäjä</th>
+        </tr>
+        {% for exercise in exercises %}
+        <tr>
+            <td><a href="/exercise/{{exercise[1]}}">{{exercise[0]}}</a></td>
+            <td>{{exercise[3]}}</td>
+            <td>{{exercise[4]}}</td>
+            <td>{{exercise[5]}}</td>
+            <td>{{exercise[6]}}</td>
+            <td>{{exercise[2]}}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <form action="/exercise" method="POST">
+                <td><input type="text" name="exercise"></td>
+                <td>
+                    <select id="exercisetype" name="exercisetype">
+                        {% for exercisetype in exercisetypes %}
+                        <option name="exercisetype" value={{exercisetype[0]}}>{{exercisetype[1]}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                <td><input type="text" name="length"></td>
+                <td><input type="text" name="duration"></td>
+                <td><input type="text" name="bpm"></td>
+                <td><input type="submit" value="Lisää"></td>
+                <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+            </form>
+        </tr>
+    </table>
+</div>
     {% block admin %}
     {% endblock %}
 {% endblock %}
