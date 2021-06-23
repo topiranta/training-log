@@ -56,4 +56,4 @@ Sovelluksen keskeiset toiminnallisuudet:
 * Valmentaja voi kommentoida käyttäjien harjoituksia
 * Valmentaja voi luoda käyttäjälle suunnitellun harjoituksen
 
-Readme-versio 0.4
+Readme-versio 1.0
