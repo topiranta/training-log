@@ -2,12 +2,13 @@
 
 Web-applikaatio, jolla voi pitää kirjaa ja suunnitella useamman lajin harjoittelua. Helsingin yliopiston kurssin *[Tietokantasovellus](https://hy-tsoha.github.io/materiaali/pages/aikataulu.html)* laboratoriotyö.
 
-## Sovelluksen tila ja ominaisuudet 22.6.
+## Sovelluksen tila ja ominaisuudet 23.6.
 
 Tuotantosovellus kokeiltavissa [Herokussa](https://tsoha-training-log.herokuapp.com/).
 Herokussa pyörivän sovelluksen tietokannassa on yksi admin-käyttäjä:
 * Käyttäjätunnus poliisimestari
 * Salasana sisu
+Admin-tunnuksella voi muuttaa muiden käyttäjätunnusten käyttäjätasoja.
 
 ### Ominaisuudet
 
