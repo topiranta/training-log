@@ -54,7 +54,7 @@ def login(username, password):
 
 def logout():
 
-	del session['username']
+	session.clear()
 
 def loggedin():
 

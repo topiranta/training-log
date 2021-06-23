@@ -1,9 +1,9 @@
 <!doctype html>
     <link rel="stylesheet" href={{ url_for('static', filename='style.css') }}>
     <script>
-        let error = {{error}}
-        if (error !== null) {
-            alert(error)
+        let error = "{{error}}"
+        if (error !== "") {
+            window.alert(error)
         }
     </script>
     <div class="nav">
