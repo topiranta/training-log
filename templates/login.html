@@ -1,12 +1,6 @@
-<!doctype html>
-<link rel="stylesheet" href={{ url_for('static', filename='style.css') }}>
-<script>
-        let error = "{{error}}"
-        if (error !== "") {
-            window.alert(error)
-        }
-</script>
-    <body>
+{% extends "layout.html" %}
+{% block page %}
+    <body class="login-screen">
         <div class="login">
             <h1>Kirjaudu sisään</h1>
             <br>
@@ -23,9 +17,7 @@
                 <br>
                 <input type="submit" value="Kirjaudu">
             </form>
-        </div>
-
-        <div class="login">
+            <br>
             <h1>Tai luo uusi käyttäjätunnus</h1>
             <br>
             <form action="/create-user" method="POST">
@@ -47,3 +39,4 @@
             </form>
         </div>
     </body>
+{% endblock %}

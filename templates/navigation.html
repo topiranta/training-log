@@ -1,11 +1,5 @@
-<!doctype html>
-    <link rel="stylesheet" href={{ url_for('static', filename='style.css') }}>
-    <script>
-        let error = "{{error}}"
-        if (error !== "") {
-            window.alert(error)
-        }
-    </script>
+{% extends "layout.html" %}
+{% block page %}
     <div class="nav">
         <p>
             <a href="/">Etusivu</a>
@@ -18,3 +12,4 @@
         {% block content %}
         {% endblock %}
     </body>
+{% endblock %}
