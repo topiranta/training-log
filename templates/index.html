@@ -32,9 +32,9 @@
                         {% endfor %}
                     </select>
                 </td>
-                <td><input type="text" name="length"></td>
-                <td><input type="text" name="duration"></td>
-                <td><input type="text" name="bpm"></td>
+                <td><input type="number" name="length"></td>
+                <td><input type="number" name="duration"></td>
+                <td><input type="number" name="bpm"></td>
                 <td><input type="submit" value="Lisää"></td>
                 <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
             </form>

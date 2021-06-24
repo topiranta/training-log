@@ -36,9 +36,9 @@ def addExcercise():
 
     description = request.form["exercise"]
     exercisetype = request.form["exercisetype"]
-    length = request.form["length"]
-    duration = request.form["duration"]
-    bpm = request.form["bpm"]
+    length = int(request.form["length"])
+    duration = int(request.form["duration"])
+    bpm = int(request.form["bpm"])
 
     if len(description) < 1 or len(description) > 20 or length < 1 or length > 1000 or duration < 1 or duration > 3000 or bpm < 40 or bpm > 250:
 
